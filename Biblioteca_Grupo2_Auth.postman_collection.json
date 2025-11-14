@@ -1,0 +1,222 @@
+{
+  "info": {
+    "name": "Biblioteca Digital - Grupo 2 Autenticación",
+    "description": "Colección de APIs para el sistema de autenticación y gestión de usuarios",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{jwt_token}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:8080",
+      "type": "string"
+    },
+    {
+      "key": "jwt_token",
+      "value": "",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "Autenticación",
+      "item": [
+        {
+          "name": "Registro de Usuario",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nombre\": \"Juan Pérez\",\n  \"username\": \"juanperez\",\n  \"email\": \"juan@ejemplo.com\",\n  \"contrasena\": \"contrasena123\",\n  \"id_tipo_usuario\": 1\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/auth/register",
+              "host": ["{{base_url}}"],
+              "path": ["api", "auth", "register"]
+            }
+          }
+        },
+        {
+          "name": "Login",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"username\": \"admin\",\n  \"contrasena\": \"contrasena123\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/auth/login",
+              "host": ["{{base_url}}"],
+              "path": ["api", "auth", "login"]
+            }
+          }
+        },
+        {
+          "name": "Logout",
+          "request": {
+            "method": "POST",
+            "url": {
+              "raw": "{{base_url}}/api/auth/logout",
+              "host": ["{{base_url}}"],
+              "path": ["api", "auth", "logout"]
+            }
+          }
+        },
+        {
+          "name": "Recuperar Contraseña",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"juan@ejemplo.com\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/auth/forgot-contrasena",
+              "host": ["{{base_url}}"],
+              "path": ["api", "auth", "forgot-contrasena"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Gestión de Usuarios",
+      "item": [
+        {
+          "name": "Obtener Mi Perfil",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/api/users/profile",
+              "host": ["{{base_url}}"],
+              "path": ["api", "users", "profile"]
+            }
+          }
+        },
+        {
+          "name": "Actualizar Mi Perfil",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nombre\": \"Juan Pérez Actualizado\",\n  \"email\": \"juan.nuevo@ejemplo.com\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/users/profile",
+              "host": ["{{base_url}}"],
+              "path": ["api", "users", "profile"]
+            }
+          }
+        },
+        {
+          "name": "Cambiar Contraseña",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"oldcontrasena\": \"contrasena123\",\n  \"newcontrasena\": \"newcontrasena456\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/users/change-contrasena",
+              "host": ["{{base_url}}"],
+              "path": ["api", "users", "change-contrasena"]
+            }
+          }
+        },
+        {
+          "name": "Obtener Usuario por ID (Bibliotecario)",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/api/users/1",
+              "host": ["{{base_url}}"],
+              "path": ["api", "users", "1"]
+            }
+          }
+        },
+        {
+          "name": "Listar Usuarios (Bibliotecario)",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/api/users?page=0&size=20",
+              "host": ["{{base_url}}"],
+              "path": ["api", "users"],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "0"
+                },
+                {
+                  "key": "size",
+                  "value": "20"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Activar Usuario (Admin)",
+          "request": {
+            "method": "PUT",
+            "url": {
+              "raw": "{{base_url}}/api/users/1/activate",
+              "host": ["{{base_url}}"],
+              "path": ["api", "users", "1", "activate"]
+            }
+          }
+        },
+        {
+          "name": "Desactivar Usuario (Admin)",
+          "request": {
+            "method": "PUT",
+            "url": {
+              "raw": "{{base_url}}/api/users/1/deactivate",
+              "host": ["{{base_url}}"],
+              "path": ["api", "users", "1", "deactivate"]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
