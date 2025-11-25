@@ -12,6 +12,10 @@ import lombok.NoArgsConstructor;
 public class AuthResponse {
     private Integer id_usuario;
     private String token;
+    
+    // 👇 AGREGA ESTE CAMPO NUEVO
+    private String refreshToken; 
+    
     private String mensaje;
     private UserInfo usuario_info;
     private String[] permisos;

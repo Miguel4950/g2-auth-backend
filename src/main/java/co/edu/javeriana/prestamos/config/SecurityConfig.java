@@ -38,6 +38,11 @@ public class SecurityConfig {
         http
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .csrf(csrf -> csrf.disable())
+                .headers(headers -> headers
+                .frameOptions(frame -> frame.sameOrigin()) // Permite H2 Console
+                .xssProtection(xss -> xss.disable()) // Compatibilidad moderna
+                .contentSecurityPolicy(csp -> csp.policyDirectives("script-src 'self'")) // Anti-XSS
+            )
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/auth/**", "/swagger-ui/**", "/v3/api-docs/**").permitAll()
